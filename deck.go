@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -40,4 +41,9 @@ func (d deck) toString() string {
 	//This explicit type conversion helps Go maintain strict type safety,
 	//ensuring that functions receive the exact type they expect
 	return strings.Join([]string(d), ",")
+}
+
+func (d deck) saveToFile(filename string) error {
+	//0666 is default permission, meaning anyone can read & write this file
+	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
