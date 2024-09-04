@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Create a new type of 'deck'
 // which is a slice of strings
@@ -29,4 +32,12 @@ func (d deck) print() {
 
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+func (d deck) toString() string {
+	//[]string(d) converts var d of type deck to its underlying type of []string
+	//before passing its value to strings.Join()
+	//This explicit type conversion helps Go maintain strict type safety,
+	//ensuring that functions receive the exact type they expect
+	return strings.Join([]string(d), ",")
 }
