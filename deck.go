@@ -47,3 +47,15 @@ func (d deck) saveToFile(filename string) error {
 	//0666 is default permission, meaning anyone can read & write this file
 	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
+
+func newDeckFromFile(filename string) deck {
+	bs, err := os.ReadFile(filename)
+	if err != nil {
+		// Option #1 - Log the error and return a call to newDeck()
+		// Option #2 - Log the error and entirely quit the program [applied option below]
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+	s := strings.Split(string(bs), ",")
+	return deck(s)
+}
